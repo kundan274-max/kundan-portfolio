@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Kundan Kumar | Portfolio</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <header>
+      <nav class="navbar">
+        <a href="/" class="logo">Kundan<span>.</span></a>
+
+        <button
+          class="menu-toggle"
+          id="menuToggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button id="themeToggle" class="theme-toggle">🌙</button>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-content">
+          <p class="greeting">WELCOME TO MY PORTFOLIO</p>
+
+          <h1>Hi, I'm <span>Kundan Kumar</span></h1>
+
+          <h2><span id="typing-text"></span><span class="cursor">|</span></h2>
+
+          <p class="description">
+            I am a BCA 3rd-semester student at Jharkhand Rai University. I am
+            learning Python programming and exploring web development by
+            building practical projects.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#projects" class="btn">View My Projects</a>
+
+            <a href="#contact" class="btn btn-outline">Contact Me</a>
+
+            <a
+              href="{{ url_for('static', filename='files/resume.pdf') }}"
+              class="btn"
+              download
+            >
+              📄 Download Resume
+            </a>
+          </div>
+
+          <p class="learning-note">Learning • Building • Improving 🚀</p>
+        </div>
+
+        <div class="hero-card">
+          <div class="profile-circle">KK</div>
+          <h3>Kundan Kumar</h3>
+          <p>BCA Student</p>
+          <div class="tech-tags">
+            <span>Python</span>
+            <span>C</span>
+            <span>Flask</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Me Section -->
+      <section class="about-section" id="about">
+        <div class="section-heading">
+          <p class="section-label">GET TO KNOW ME</p>
+          <h2>About <span>Me</span></h2>
+          <p>A little introduction about my journey.</p>
+        </div>
+
+        <div class="about-content">
+          <div class="about-card">
+            <h3>Who Am I?</h3>
+
+            <p>
+              I am Kundan Kumar, a BCA 3rd-semester student at Jharkhand Rai
+              University.
+            </p>
+
+            <p>
+              I am learning Python programming, C programming and web
+              development. I enjoy practicing programs and building projects to
+              improve my technical skills.
+            </p>
+
+            <p>
+              My goal is to become a skilled software developer by learning new
+              technologies and gaining practical experience.
+            </p>
+          </div>
+
+          <div class="about-info">
+            <div class="info-item">
+              <span>Education</span>
+              <strong>Bachelor of Computer Applications</strong>
+            </div>
+
+            <div class="info-item">
+              <span>University</span>
+              <strong>Jharkhand Rai University</strong>
+            </div>
+
+            <div class="info-item">
+              <span>Current Semester</span>
+              <strong>3rd Semester</strong>
+            </div>
+
+            <div class="info-item">
+              <span>Career Interest</span>
+              <strong>Software Development</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section class="skills-section" id="skills">
+        <div class="section-heading">
+          <p class="section-label">WHAT I AM LEARNING</p>
+          <h2>My <span>Skills</span></h2>
+          <p>Technologies and concepts I practice.</p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-icon">PY</div>
+            <h3>Python</h3>
+            <p>Programming basics, functions and modules.</p>
+            <span class="skill-level">Learning</span>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">C</div>
+            <h3>C Programming</h3>
+            <p>Fundamentals and basic programming logic.</p>
+            <span class="skill-level">Practicing</span>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">HT</div>
+            <h3>HTML & CSS</h3>
+            <p>Website structure and styling.</p>
+            <span class="skill-level">Learning</span>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">DB</div>
+            <h3>MySQL</h3>
+            <p>SQL queries and database fundamentals.</p>
+            <span class="skill-level">Practicing</span>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">TK</div>
+            <h3>Tkinter</h3>
+            <p>Python GUI basics and desktop applications.</p>
+            <span class="skill-level">Learning</span>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">FL</div>
+            <h3>Flask</h3>
+            <p>Building a portfolio with Python.</p>
+            <span class="skill-level">Learning</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="placeholder-section" id="projects">
+        <h2>My Projects</h2>
+        <p>Projects I have developed while learning programming.</p>
+
+        <div class="project-card">
+          <h3>Kundan Parking System</h3>
+
+          <p>
+            A parking management application built using Python, Tkinter and
+            SQLite. It manages vehicle entry and exit, parking history, billing
+            and parking space availability.
+          </p>
+
+          <div class="project-tech">
+            <span>Python</span>
+            <span>Tkinter</span>
+            <span>SQLite</span>
+          </div>
+
+          <div class="parking-gallery">
+            <figure>
+              <img
+                src="{{ url_for('static', filename='images/parking/parking-dashboard.png') }}"
+                alt="Parking System Dashboard"
+              />
+              <figcaption>Parking Dashboard</figcaption>
+            </figure>
+
+            <figure>
+              <img
+                src="{{ url_for('static', filename='images/parking/parking-history.png') }}"
+                alt="Parking History"
+              />
+              <figcaption>Parking History</figcaption>
+            </figure>
+
+            <figure>
+              <img
+                src="{{ url_for('static', filename='images/parking/code.png') }}"
+                alt="Parking System Code"
+              />
+              <figcaption>Python Source Code</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="placeholder-section" id="contact">
+        <h2>Contact Me</h2>
+        <p>Let's connect and discuss ideas, projects and opportunities!</p>
+
+        <div class="contact-links">
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=kundankumarsingh85191@mail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            📧 Email Me
+          </a>
+
+          <a
+            href="https://github.com/kundan274-max"
+            target="_blank"
+            rel="noopener noreferrer"
+            >💻 GitHub</a
+          >
+
+          <a
+            href="https://www.linkedin.com/in/kundan-kumar-1785002aa/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >💼 LinkedIn</a
+          >
+        </div>
+      </section>
+
+      <section class="placeholder-section" id="contact">
+        <h2>Contact Me</h2>
+        <p>Contact details will be added here.</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 Kundan Kumar | Personal Portfolio</p>
+    </footer>
+
+    <script>
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      menuToggle.addEventListener("click", function () {
+        navLinks.classList.toggle("show");
+
+        const isOpen = navLinks.classList.contains("show");
+
+        menuToggle.innerHTML = isOpen ? "✕" : "☰";
+        menuToggle.setAttribute("aria-expanded", isOpen);
+      });
+
+      document.querySelectorAll(".nav-links a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          navLinks.classList.remove("show");
+          menuToggle.innerHTML = "☰";
+          menuToggle.setAttribute("aria-expanded", "false");
+        });
+      });
+    </script>
+    <script>
+      const texts = [
+        "BCA Student",
+        "Aspiring Software Developer",
+        "Python Developer",
+        "Web Developer",
+      ];
+
+      let textIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      function typeEffect() {
+        const currentText = texts[textIndex];
+        const typingElement = document.getElementById("typing-text");
+
+        typingElement.textContent = currentText.substring(0, charIndex);
+
+        if (!isDeleting && charIndex < currentText.length) {
+          charIndex++;
+          setTimeout(typeEffect, 100);
+        } else if (isDeleting && charIndex > 0) {
+          charIndex--;
+          setTimeout(typeEffect, 50);
+        } else {
+          isDeleting = !isDeleting;
+
+          if (!isDeleting) {
+            textIndex = (textIndex + 1) % texts.length;
+          }
+
+          setTimeout(typeEffect, 700);
+        }
+      }
+
+      typeEffect();
+    </script>
+    <script>
+      const themeToggle = document.getElementById("themeToggle");
+
+      themeToggle.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+
+        if (document.body.classList.contains("dark-mode")) {
+          themeToggle.innerHTML = "☀️";
+        } else {
+          themeToggle.innerHTML = "🌙";
+        }
+      });
+    </script>
+    <script>
+      const revealElements = document.querySelectorAll(
+        ".about-section, .skills-section, .projects-section, .contact-section",
+      );
+
+      revealElements.forEach(function (element) {
+        element.classList.add("reveal");
+      });
+
+      const observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("active");
+            }
+          });
+        },
+        {
+          threshold: 0.15,
+        },
+      );
+
+      revealElements.forEach(function (element) {
+        observer.observe(element);
+      });
+    </script>
+  </body>
+</html>
