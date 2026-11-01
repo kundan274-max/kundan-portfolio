@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Manage Profile | Kundan Admin</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="admin-dashboard">
+      <div class="admin-sidebar">
+        <h2>Kundan Admin</h2>
+
+        <a href="{{ url_for('admin_dashboard') }}">📊 Dashboard</a>
+        <a href="{{ url_for('admin_profile') }}">👤 Profile</a>
+        <a href="#">🛠️ Skills</a>
+        <a href="#">💼 Projects</a>
+        <a href="#">📄 Resume</a>
+        <a href="{{ url_for('admin_logout') }}">🚪 Logout</a>
+      </div>
+
+      <div class="admin-main">
+        <h1>Manage Profile 👤</h1>
+        <p>Update your portfolio information and profile photo.</p>
+
+        <div class="profile-admin-card">
+          <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <label>Profile Photo</label>
+              <input type="file" name="profile_photo" accept="image/*" />
+            </div>
+
+            <div class="form-group">
+              <label>Full Name</label>
+              <input
+                type="text"
+                name="name"
+                value="{{ profile['name'] }}"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Professional Title</label>
+              <input
+                type="text"
+                name="title"
+                value="{{ profile['title'] }}"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label>About</label>
+              <textarea name="about" rows="6" required>
+{{ profile['about'] }}</textarea
+              >
+            </div>
+
+            <button type="submit" class="admin-login-btn">
+              💾 Save Profile
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Manage Resume</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 25px;
+        background: #121212;
+        color: #fff;
+      }
+      .container {
+        max-width: 500px;
+        margin: auto;
+      }
+      .back-link {
+        color: #aaa;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+      .card {
+        background: #1e1e1e;
+        padding: 25px;
+        border-radius: 8px;
+        border: 1px solid #333;
+      }
+      input[type="file"] {
+        margin: 15px 0;
+        color: #bbb;
+      }
+      button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        width: 100%;
+      }
+      .alert {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        background: #28a745;
+        color: white;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a class="back-link" href="{{ url_for('admin_dashboard') }}"
+        >← Back to Dashboard</a
+      >
+      <div class="card">
+        <h2>📄 Update Resume (PDF)</h2>
+
+        {% if message %}
+        <div class="alert">{{ message }}</div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+          <label>Select new PDF resume:</label>
+          <input type="file" name="resume" accept=".pdf" required />
+          <button type="submit">Upload Resume</button>
+        </form>
+
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #888">
+          Current file will be saved as <code>resume.pdf</code>.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

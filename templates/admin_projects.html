@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Projects</title>
+    <style>
+        body { font-family: sans-serif; padding: 25px; background: #121212; color: #fff; }
+        .container { max-width: 600px; margin: auto; }
+        input, textarea, button { display: block; width: 100%; margin: 10px 0; padding: 10px; border-radius: 6px; border: 1px solid #333; box-sizing: border-box; }
+        input, textarea { background: #1e1e1e; color: #fff; }
+        button { background: #007bff; color: white; border: none; cursor: pointer; font-weight: bold; }
+        .project-card { background: #1e1e1e; padding: 15px; margin-top: 15px; border-radius: 6px; }
+        .delete-btn { color: #ff5252; text-decoration: none; font-weight: bold; }
+        .back-link { color: #aaa; text-decoration: none; display: inline-block; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a class="back-link" href="{{ url_for('admin_dashboard') }}">← Back to Dashboard</a>
+        <h2>Add New Project</h2>
+        <form method="POST">
+            <input type="text" name="title" placeholder="Project Title" required>
+            <textarea name="description" placeholder="Project Description" rows="3" required></textarea>
+            <input type="text" name="link" placeholder="GitHub / Live Link" required>
+            <button type="submit">Add Project</button>
+        </form>
+
+        <h3 style="margin-top: 40px;">Current Projects</h3>
+        {% for project in projects %}
+        <div class="project-card">
+            <h4>{{ project["title"] }}</h4>
+            <p>{{ project["description"] }}</p>
+            <p><a href="{{ project["link"] }}" target="_blank" style="color: #4dabf7;">{{ project["link"] }}</a></p>
+            <a class="delete-btn" href="{{ url_for('delete_project', project_id=project['id']) }}">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

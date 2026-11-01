@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Admin Dashboard | Kundan Portfolio</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="admin-dashboard">
+      <div class="admin-sidebar">
+        <h2>Kundan Admin</h2>
+
+        <a href="/admin/dashboard">📊 Dashboard</a>
+        <a href="{{ url_for('admin_profile') }}">👤 Profile</a>
+        <a href="{{ url_for('admin_skills') }}">🛠️ Skills</a>
+        <a href="{{ url_for('admin_projects') }}">📁 Projects</a>
+        <a href="{{ url_for('admin_messages') }}">📩 Messages</a>
+        <a href="{{ url_for('admin_resume') }}">📄 Resume</a>
+        <a href="/admin/logout">🚪 Logout</a>
+      </div>
+
+      <div class="admin-main">
+        <h1>Welcome, Kundan! 👋</h1>
+
+        <p>Manage your portfolio from one place.</p>
+
+        <div class="dashboard-cards">
+          <div class="dashboard-card">
+            <h3>👤 Profile</h3>
+            <p>Manage profile information and photo.</p>
+          </div>
+
+          <div class="dashboard-card">
+            <h3>🛠️ Skills</h3>
+            <p>Add and manage your technical skills.</p>
+          </div>
+
+          <div class="dashboard-card">
+            <h3>💼 Projects</h3>
+            <p>Add, edit or remove portfolio projects.</p>
+          </div>
+
+          <div class="dashboard-card">
+            <a
+              href="{{ url_for('admin_messages') }}"
+              style="text-decoration: none; color: inherit"
+            >
+              <h3>📩 Messages</h3>
+              <p>View messages sent from contact form.</p>
+            </a>
+          </div>
+
+          <div class="dashboard-card">
+            <a
+              href="{{ url_for('admin_resume') }}"
+              style="text-decoration: none; color: inherit"
+            >
+              <h3>📄 Resume</h3>
+              <p>Upload and update your resume.</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

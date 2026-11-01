@@ -38,22 +38,16 @@
       </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Main Content -->
     <main>
+      <!-- Hero Section -->
       <section class="hero" id="home">
         <div class="hero-content">
           <p class="greeting">WELCOME TO MY PORTFOLIO</p>
-
-          <h1>Hi, I'm <span>Kundan Kumar</span></h1>
+          <h1>Hi, I'm <span>{{ profile["name"] }}</span></h1>
 
           <h2><span id="typing-text"></span><span class="cursor">|</span></h2>
-
-          <p class="description">
-            I am a BCA 3rd-semester student at Jharkhand Rai University. I am
-            learning Python programming and exploring web development by
-            building practical projects.
-          </p>
-
+          <p class="description">{{ profile["about"] }}</p>
           <div class="hero-buttons">
             <a href="#projects" class="btn">View My Projects</a>
 
@@ -72,9 +66,14 @@
         </div>
 
         <div class="hero-card">
-          <div class="profile-circle">KK</div>
+          <div class="profile-circle">
+            <img
+              src="{{ url_for('static', filename='images/uploads/' + profile['photo']) }}"
+              alt="{{ profile['name'] }}"
+            />
+          </div>
           <h3>Kundan Kumar</h3>
-          <p>BCA Student</p>
+          <p>{{ profile["title"] }}</p>
           <div class="tech-tags">
             <span>Python</span>
             <span>C</span>
@@ -145,54 +144,23 @@
         </div>
 
         <div class="skills-grid">
+          {% for skill in skills %}
           <div class="skill-card">
-            <div class="skill-icon">PY</div>
-            <h3>Python</h3>
-            <p>Programming basics, functions and modules.</p>
+            <div class="skill-icon">{{ skill["name"][:2]|upper }}</div>
+            <h3>{{ skill["name"] }}</h3>
+            <p>Currently learning and practicing this technology.</p>
             <span class="skill-level">Learning</span>
           </div>
-
-          <div class="skill-card">
-            <div class="skill-icon">C</div>
-            <h3>C Programming</h3>
-            <p>Fundamentals and basic programming logic.</p>
-            <span class="skill-level">Practicing</span>
-          </div>
-
-          <div class="skill-card">
-            <div class="skill-icon">HT</div>
-            <h3>HTML & CSS</h3>
-            <p>Website structure and styling.</p>
-            <span class="skill-level">Learning</span>
-          </div>
-
-          <div class="skill-card">
-            <div class="skill-icon">DB</div>
-            <h3>MySQL</h3>
-            <p>SQL queries and database fundamentals.</p>
-            <span class="skill-level">Practicing</span>
-          </div>
-
-          <div class="skill-card">
-            <div class="skill-icon">TK</div>
-            <h3>Tkinter</h3>
-            <p>Python GUI basics and desktop applications.</p>
-            <span class="skill-level">Learning</span>
-          </div>
-
-          <div class="skill-card">
-            <div class="skill-icon">FL</div>
-            <h3>Flask</h3>
-            <p>Building a portfolio with Python.</p>
-            <span class="skill-level">Learning</span>
-          </div>
+          {% endfor %}
         </div>
       </section>
 
+      <!-- Projects Section -->
       <section class="placeholder-section" id="projects">
         <h2>My Projects</h2>
         <p>Projects I have developed while learning programming.</p>
 
+        <!-- Static Featured Project -->
         <div class="project-card">
           <h3>Kundan Parking System</h3>
 
@@ -234,13 +202,23 @@
             </figure>
           </div>
         </div>
+
+        <!-- Dynamic Projects from Admin Panel -->
+        {% for project in projects %}
+        <div class="project-card" style="margin-top: 20px;">
+          <h3>{{ project["title"] }}</h3>
+          <p>{{ project["description"] }}</p>
+          <a href="{{ project["link"] }}" target="_blank" class="btn" style="display: inline-block; margin-top: 10px;">View Project →</a>
+        </div>
+        {% endfor %}
       </section>
 
+      <!-- Contact Section -->
       <section class="placeholder-section" id="contact">
         <h2>Contact Me</h2>
         <p>Let's connect and discuss ideas, projects and opportunities!</p>
 
-        <div class="contact-links">
+        <div class="contact-links" style="margin-bottom: 30px;">
           <a
             href="https://mail.google.com/mail/?view=cm&fs=1&to=kundankumarsingh85191@mail.com"
             target="_blank"
@@ -263,11 +241,26 @@
             >💼 LinkedIn</a
           >
         </div>
-      </section>
 
-      <section class="placeholder-section" id="contact">
-        <h2>Contact Me</h2>
-        <p>Contact details will be added here.</p>
+        <!-- Contact Form -->
+        <form action="{{ url_for('contact') }}" method="POST" style="max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; text-align: left;">
+          <div>
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Name</label>
+            <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #444; box-sizing: border-box; background: #1e1e1e; color: #fff;" />
+          </div>
+
+          <div>
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Email</label>
+            <input type="email" name="email" placeholder="Your Email" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #444; box-sizing: border-box; background: #1e1e1e; color: #fff;" />
+          </div>
+
+          <div>
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Message</label>
+            <textarea name="message" rows="4" placeholder="Your Message" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #444; box-sizing: border-box; background: #1e1e1e; color: #fff;"></textarea>
+          </div>
+
+          <button type="submit" class="btn" style="cursor: pointer; padding: 12px; border: none; font-weight: bold; width: 100%;">Send Message 🚀</button>
+        </form>
       </section>
     </main>
 
@@ -275,15 +268,14 @@
       <p>© 2026 Kundan Kumar | Personal Portfolio</p>
     </footer>
 
+    <!-- Scripts -->
     <script>
       const menuToggle = document.getElementById("menuToggle");
       const navLinks = document.getElementById("navLinks");
 
       menuToggle.addEventListener("click", function () {
         navLinks.classList.toggle("show");
-
         const isOpen = navLinks.classList.contains("show");
-
         menuToggle.innerHTML = isOpen ? "✕" : "☰";
         menuToggle.setAttribute("aria-expanded", isOpen);
       });
@@ -296,6 +288,7 @@
         });
       });
     </script>
+
     <script>
       const texts = [
         "BCA Student",
@@ -322,23 +315,21 @@
           setTimeout(typeEffect, 50);
         } else {
           isDeleting = !isDeleting;
-
           if (!isDeleting) {
             textIndex = (textIndex + 1) % texts.length;
           }
-
           setTimeout(typeEffect, 700);
         }
       }
 
       typeEffect();
     </script>
+
     <script>
       const themeToggle = document.getElementById("themeToggle");
 
       themeToggle.addEventListener("click", function () {
         document.body.classList.toggle("dark-mode");
-
         if (document.body.classList.contains("dark-mode")) {
           themeToggle.innerHTML = "☀️";
         } else {
@@ -346,6 +337,7 @@
         }
       });
     </script>
+
     <script>
       const revealElements = document.querySelectorAll(
         ".about-section, .skills-section, .projects-section, .contact-section",

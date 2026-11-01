@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Contact Messages</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 25px;
+        background: #121212;
+        color: #fff;
+      }
+      .container {
+        max-width: 700px;
+        margin: auto;
+      }
+      .back-link {
+        color: #aaa;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+      .msg-card {
+        background: #1e1e1e;
+        padding: 18px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #007bff;
+      }
+      .msg-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+      .msg-name {
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+      .msg-email {
+        color: #4dabf7;
+        font-size: 0.9rem;
+      }
+      .msg-body {
+        margin: 10px 0;
+        color: #ddd;
+        line-height: 1.5;
+      }
+      .delete-btn {
+        color: #ff5252;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a class="back-link" href="{{ url_for('admin_dashboard') }}"
+        >← Back to Dashboard</a
+      >
+      <h2>Messages Received</h2>
+
+      {% if messages %} {% for msg in messages %}
+      <div class="msg-card">
+        <div class="msg-header">
+          <span class="msg-name">{{ msg["name"] }}</span>
+          <span class="msg-email">{{ msg["email"] }}</span>
+        </div>
+        <div class="msg-body">{{ msg["message"] }}</div>
+        <small style="color: #777">Received: {{ msg["created_at"] }}</small>
+        <div style="margin-top: 10px">
+          <a
+            class="delete-btn"
+            href="{{ url_for('delete_message', message_id=msg['id']) }}"
+            >Delete Message</a
+          >
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <p style="color: #888">No messages yet.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
