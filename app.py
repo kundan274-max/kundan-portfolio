@@ -52,8 +52,11 @@ def home():
 def admin_login():
 
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "").strip()
+
+        print("LOGIN USERNAME:", repr(username))
+        print("LOGIN PASSWORD LENGTH:", len(password))
 
         if username == "admin" and password == "12345":
             session["admin"] = True
