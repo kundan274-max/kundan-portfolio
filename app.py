@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, Response, request, session, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
 
@@ -28,6 +28,7 @@ add_default_profile()
 
 create_skills_table()
 add_default_skills()
+
 
 # ================= HOME =================
 
@@ -98,24 +99,20 @@ def admin_profile():
 
         photo = request.files.get("profile_photo")
 
-        # Get current profile
         profile = connection.execute("SELECT * FROM profile WHERE id = 1").fetchone()
 
         filename = profile["photo"]
 
-        # Save new photo if selected
         if photo and photo.filename != "":
             filename = secure_filename(photo.filename)
-
             photo.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
 
-        # Update database
         connection.execute(
             """
             UPDATE profile
             SET name = ?, title = ?, about = ?, photo = ?
             WHERE id = 1
-        """,
+            """,
             (name, title, about, filename),
         )
 
@@ -124,7 +121,6 @@ def admin_profile():
 
         return redirect(url_for("admin_profile"))
 
-    # GET profile data
     profile = connection.execute("SELECT * FROM profile WHERE id = 1").fetchone()
 
     connection.close()
@@ -178,8 +174,11 @@ def delete_skill(skill_id):
 
 
 # ================= ADMIN PROJECTS =================
+
+
 @app.route("/admin/projects", methods=["GET", "POST"])
 def admin_projects():
+
     if "admin" not in session:
         return redirect(url_for("admin_login"))
 
@@ -194,22 +193,29 @@ def admin_projects():
             "INSERT INTO projects (title, description, link) VALUES (?, ?, ?)",
             (title, description, link),
         )
+
         connection.commit()
 
     projects = connection.execute("SELECT * FROM projects").fetchall()
+
     connection.close()
 
     return render_template("admin_projects.html", projects=projects)
 
 
 # ================= DELETE PROJECT =================
+
+
 @app.route("/admin/delete-project/<int:project_id>")
 def delete_project(project_id):
+
     if "admin" not in session:
         return redirect(url_for("admin_login"))
 
     connection = get_db_connection()
+
     connection.execute("DELETE FROM projects WHERE id = ?", (project_id,))
+
     connection.commit()
     connection.close()
 
@@ -217,17 +223,22 @@ def delete_project(project_id):
 
 
 # ================= CONTACT SUBMIT =================
+
+
 @app.route("/contact", methods=["POST"])
 def contact():
+
     name = request.form.get("name")
     email = request.form.get("email")
     message = request.form.get("message")
 
     connection = get_db_connection()
+
     connection.execute(
         "INSERT INTO messages (name, email, message) VALUES (?, ?, ?)",
         (name, email, message),
     )
+
     connection.commit()
     connection.close()
 
@@ -235,26 +246,36 @@ def contact():
 
 
 # ================= ADMIN MESSAGES =================
+
+
 @app.route("/admin/messages")
 def admin_messages():
+
     if "admin" not in session:
         return redirect(url_for("admin_login"))
 
     connection = get_db_connection()
+
     messages = connection.execute("SELECT * FROM messages ORDER BY id DESC").fetchall()
+
     connection.close()
 
     return render_template("admin_messages.html", messages=messages)
 
 
 # ================= DELETE MESSAGE =================
+
+
 @app.route("/admin/delete-message/<int:message_id>")
 def delete_message(message_id):
+
     if "admin" not in session:
         return redirect(url_for("admin_login"))
 
     connection = get_db_connection()
+
     connection.execute("DELETE FROM messages WHERE id = ?", (message_id,))
+
     connection.commit()
     connection.close()
 
@@ -262,20 +283,31 @@ def delete_message(message_id):
 
 
 # ================= ADMIN RESUME =================
+
+
 @app.route("/admin/resume", methods=["GET", "POST"])
 def admin_resume():
+
     if "admin" not in session:
         return redirect(url_for("admin_login"))
 
     message = None
+
     if request.method == "POST":
+
         if "resume" in request.files:
             file = request.files["resume"]
+
             if file.filename != "" and file.filename.endswith(".pdf"):
+
                 upload_folder = os.path.join(app.root_path, "static", "files")
+
                 os.makedirs(upload_folder, exist_ok=True)
+
                 file.save(os.path.join(upload_folder, "resume.pdf"))
+
                 message = "Resume updated successfully!"
+
             else:
                 message = "Please upload a valid .pdf file."
 
@@ -292,6 +324,26 @@ def admin_logout():
 
     return redirect(url_for("admin_login"))
 
+
+# ================= SITEMAP =================
+
+
+@app.route("/sitemap.xml")
+def sitemap():
+
+    xml = """<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        <url>
+            <loc>https://kundan-portfolio-cfne.onrender.com/</loc>
+            <changefreq>monthly</changefreq>
+            <priority>1.0</priority>
+        </url>
+    </urlset>"""
+
+    return Response(xml, mimetype="application/xml")
+
+
+# ================= RUN APP =================
 
 if __name__ == "__main__":
     app.run(debug=True)
